@@ -10,18 +10,22 @@ def learn(alpha=.1/numTilings, epsilon=0, numEpisodes=200):
     theta1 = -0.001*rand(n)
     theta2 = -0.001*rand(n)
     returnSum = 0.0
-
+    
+    doubleQ = DoubleQ(alpha, epsilon)
     for episodeNum in range(numEpisodes):
         G = 0
-        ...
-        your code goes here (20-30 lines, depending on modularity)
-        ...
         isTerminal = false
         #initialize the mountain car
-        initialState = mountaincar.init()
+        state = mountaincar.init()
         while (not isTerminal):
-            
-            
+            action = doubleQ.policy(state)
+            reward, nextState = sample(state, action)
+            G+=reward
+            doubleQ.learn(self, state, action, nextState, reward)           
+            state = nextState
+            if not nextState:
+                isTerminated = True
+                
         print("Episode: ", episodeNum, "Steps:", step, "Return: ", G)
         returnSum = returnSum + G
     print("Average return:", returnSum / numEpisodes)

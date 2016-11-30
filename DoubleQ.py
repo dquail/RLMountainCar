@@ -1,24 +1,22 @@
-import blackjack
 from pylab import *
 import matplotlib.pyplot as plt
 import numpy
-from TileCoder import *
+from Tilecoder import *
 
 class DoubleQ:
-    def __init__(self, numberOfWeights, alpha, eps):
-        self.numberOfWeights = numberOfWeights
-        self.initialWeights = initialWeights
+    def __init__(self, alpha, eps):
+        self.numberOfWeights = tilesPerTiling * tilesPerTiling * numTilings * 3
         self.alpha = alpha
         self.eps = eps
-        self.theta1 = [np.random.uniform(-0.001, 0)]*numberOfWeights
-        self.theta2 = [np.random.uniform(-0.001, 0)]*numberOfWeights
+        self.theta1 = [np.random.uniform(-0.001, 0)]*self.numberOfWeights
+        self.theta2 = [np.random.uniform(-0.001, 0)]*self.numberOfWeights
         
-    def resetQ():
-        self.theta1 = [np.random.uniform(-0.001, 0)]*numberOfWeights
-        self.theta2 = [np.random.uniform(-0.001, 0)]*numberOfWeights
+    def resetQ(self):
+        self.theta1 = [np.random.uniform(-0.001, 0)]*self.numberOfWeights
+        self.theta2 = [np.random.uniform(-0.001, 0)]*self.numberOfWeights
 
-    def vHat(state, action, theta):
-        #TODO - return the actual value here using 
+    def qHat(self, state, action, theta):
+
         #Create the feature vector based on state, action using tile coding. Generate the value by inner product with weights (theta)
         tileIndices = tilecode(state[0], state[1], action)
         
@@ -27,15 +25,50 @@ class DoubleQ:
             value+=theta[indicie]
             
         return value
+    def bestAction(self, state, theta):
+        print("bestAction: " + str(state))
+        q = [self.qHat(state, 0, theta), self.qHat(state, 1, theta), self.qHat(state, 2, theta)]
+        action = numpy.argmax(q)
+        return action
+
         
-    def policy(state):
+    def policy(self, state):
         #Combine the average of the two weight vectors
-        theta = (self.theta1 + self.theta2) / 2
+        theta = np.add(self.theta1, self.theta2) / 2
         
-        q = [self.vHat(state, 0, theta), self.vHat(state, 1, theta), self.vHat(state, 2, theta)]
+        q = [self.qHat(state, 0, theta), self.qHat(state, 1, theta), self.qHat(state, 2, theta)]
+        print(q)
         action = numpy.argmax(q)
         return action
         
+    def learn(self, state, action, nextState, reward):
+        #determine which theta to update
+        newStateValue = 0
+        
+        #Do learning - updating Q values
+
+        if (random() > 0.5):
+            nextStateValue = 0
+            if (newState):
+                #Non terminal
+                #q1BestNextAction = argmax(Q1[newState])                    
+                theta1BestNextAction = self.bestAction(state, self.theta1)
+                #newStateValue = Q2[newState, q1BestNextAction]
+                newStateValue = qHat(nextState, theta1BestNextAction, self.theta2)
+        
+            #Q1[currentState, action] = Q1[currentState, action] + alpha*(reward + newStateValue - Q1[currentState, action])
+            self.theta1 = self.theta1 + self.alpha * (reward + newStateValue - qHat(state, action, self.theta1))
+        else:
+            nextStateValue = 0
+            if (newState):
+                #Non terminal
+                theta2BestNextAction = self.bestAction(state, self.theta2)
+                newStateValue = qHat(nextState, theta2BestNextAction, self.theta1)
+        
+            self.theta2 = self.theta2 + self.alpha * (reward + newStateValue - qHat(state, action, self.theta2))
+
+            
+            
 def learn(state, action, nextState, reward):
     returnSum = 0.0
     totalStay = 0
