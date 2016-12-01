@@ -1,5 +1,5 @@
 plot "avgret.dat" using 1:2 ti ""
-set title "Average return obtained by Sarsa after n-th episode"
+set title "Average return obtained by DoubleQ after n-th episode"
 set xlabel "Episode number (n)"
 set ylabel "Average return"
 set yrange [-0.5:0.03]
