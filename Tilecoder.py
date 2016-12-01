@@ -1,11 +1,12 @@
 numTilings = 4
 minY = -0.07
 maxY = 0.07
+
 minX = -1.2
 maxX = 0.5
 tilesPerTiling = numTiles = 9
-tileWidth = (maxX-minX) / (tilesPerTiling -1) 
-tileHeight = (maxY-minY) / (tilesPerTiling -1)
+tileWidth = (maxX-minX) / (tilesPerTiling -1)  #0.2125
+tileHeight = (maxY-minY) / (tilesPerTiling -1) #0.0175
 
 tilingOffsetX = tileWidth / numTilings #0.6/8
 tilingOffsetY = tileHeight / numTilings
@@ -19,7 +20,8 @@ Consider the vecor split up into 3 sections. The first 1/3 is for action 0. The 
 #in1 = position
 #in2 = speed
 def tilecode(in1,in2, action):
-    print("tilecode: in1:" + str(in1) + " in2: " + str(in2) + " action: " + str(action))
+
+    #print("tilecode: in1:" + str(in1) + " in2: " + str(in2) + " action: " + str(action))
     #The indicie (square) where the value is 1 for each tiling. Do this as an optimiazation rather than storing the entire vector
     if not action in (0,1,2):
         raise Exception("Action must be 0, 1, 2")  
@@ -42,7 +44,7 @@ def tilecode(in1,in2, action):
         tileIndices[tiling] = index
         in1+=tilingOffsetX
         in2+=tilingOffsetY
-    print("Tile indices calculated by coder: " + str(tileIndices))
+    #print("Tile indices calculated by coder: " + str(tileIndices))
     return tileIndices
     
 def printTileCoderIndices(in1,in2, action):
