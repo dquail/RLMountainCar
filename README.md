@@ -3,7 +3,7 @@
 ##Problem Description
 Consider the task of driving an underpowered car up a steep mountain road. 
 
-![alt text](MountainCarEnvironment.png "Mountain Car environment")
+![alt text](MountainCarEnvirornment.png "Mountain Car environment")
 
 The difficulty is that gravity is stronger than the car's engine, and even at full throttle, the car cannot accelerate up the steep slope. The only solution is to first move away from teh goal and end up the opposite slope on the left. Then, by applying full throttle the car can build up enough inertia to carry it up the steep slope even though it is slowing down the whole way. This is a simple example of a continuous control task where things have to get worse in a sense (farther away from goal) before they can get better. MAny control methodologies have great difficulties with tasks of this kind unless explicitly aided by a human controller. 
 
