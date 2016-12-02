@@ -38,6 +38,11 @@ This diagram shows the learning rate of the agent. At first, the agent takes a l
 
 ![alt text](LearningRate.png "Learning rate")
 
+##Further Study
+It would be nice to have a better way to visualize the learning as it's taking place - rather than just displaying the number of steps per episode. A visual of the car attempting to drive back and forth until it reaches the goal (which you could slow up or down) would be a great teaching tool.
+
+Another idea is that one could easily play with the tile size and shape to improve performance. 
+
 
 ##Reference
 The mountain car problem description is taken from "An introduction to reinforcement learning" by Sutton and Barto. (https://webdocs.cs.ualberta.ca/~sutton/book/the-book.html)
