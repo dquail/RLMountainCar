@@ -1,3 +1,0 @@
-alpha=[Replace this text with your alpha as a floating point number, then delete the square brackets]
-epsilon=[Replace this text with your epsilon as a floating point number, then delete the square brackets]
-avgReturnSum=[Replace this text with your avgReturnSum as a floating point number or integer, then delete the square brackets]
