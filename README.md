@@ -13,16 +13,16 @@ We will use Reinforcement learning - DoubleQ learning with function approximatio
 ##Usage
 There are 3 main files:
 
-1. Tilecoder.py. 
+1. [Tilecoder.py](Tilecoder.py)
   * This receives an state representation (position and velocity) and represents it as an approximation using Tile coding. Without approximation, the state space would be infinite in this task since speed and position are continuous values.
-2. DoubleQ.py
+2. [DoubleQ.py](DoubleQ.py)
   * Responsible for the agent learning. 
   * Contains a policy - mapping states to optimal actions
   * learns based on state, reward, and nextState
-3.  learn.py
+3.  [learn.py](learn.py)
   * Is the controller. This is where you initiate the environment and begin the learning.
 
-The simplest way to generate the learning rate would be to run these commands. This will display a plot of the learning rate:
+The simplest way to watch the algorithm learn the optimal path the the goal and also generate the learning rate would be to run these commands. This will display a plot of the learning rate after experimenting trying to get the the top of the hill:
 ```python
 from learning import *
 averages, theta1, theta2 = learn(numEpisodes = 200, numRuns = 50)
